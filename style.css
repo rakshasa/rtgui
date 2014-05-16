@@ -1,0 +1,366 @@
+/*
+  This file is part of rtGui.  http://rtgui.googlecode.com/
+  Copyright (C) 2007-2011 Simon Hall.
+
+  rtGui is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  rtGui is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with rtGui.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+body {
+   font-family: sans-serif;
+   color: #333;
+   font-size:12px;
+   background-color:#fff;
+   text-align: center;
+}
+a {
+   text-decoration:none;
+   color:#17399C;
+}
+a:hover {
+   text-decoration:underline;
+}
+th {
+   font-family: sans-serif;
+}
+td {
+   font-family: sans-serif;
+   vertical-align:top;
+}
+h1,h2,h3,h4,h5,h6 {
+   margin:0px 0px 0px 0px;
+}
+select,input {
+   font-family: sans-serif;
+}
+img {
+   border:0px solid #fff;
+}
+p {
+   margin: 2px 0px 2px 0px;
+}
+
+select {
+   color:#333;
+   text-align: left;
+   margin-left:10px;
+}
+form {
+   margin: 0px 0px 0px 0px;
+}
+#wrap {
+   background: #FFF;
+   width: 976px; 
+   height: 100%;
+   margin: 0 auto;   
+   padding: 5px;
+   text-align: left;
+}
+
+#header {
+   position: relative;
+   height: 100px;
+}
+#header h1 {
+   position: absolute;
+   margin: 0; padding: 0;
+   font: bolder 5.1em sans-serif;
+   letter-spacing: -5px;
+   top: 0; left: 0px;
+
+}
+#header a:hover {
+   text-decoration:none;
+}
+#header #boxright {
+   float:right;
+   display:block;
+   text-align:right;
+}
+
+#header input {
+   font-size:80%;
+}
+
+#navlist {
+  padding: 3px 0;
+  margin: 0px 0px 0px 0px;
+  border-bottom: 2px solid #7EA610;
+}
+
+#navlist li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+
+#navlist li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #7EA610;
+  border-bottom: none;
+  background: #666;
+  text-decoration: none;
+  font-weight: bold;
+  
+}
+
+#navlist li a:link { color: #ccc; }
+#navlist li a:visited { color: #ccc; }
+
+#navlist li a:hover {
+  color: #bbb;
+  background: #333;
+  border-bottom:2px solid #333;
+  padding-top:5px;
+}
+
+#navlist li a#current {
+  background: #333;
+  border: 2px solid #7EA610;
+  border-bottom: 2px solid #333;
+  font-weight:bold;
+  color:#fff;
+  padding-top:5px;
+}
+div {
+   margin:0px 0px 0px 0px;
+   padding: 0px;
+}
+div.container {
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 0px;
+   background-color: #fff;
+   border-left:1px solid #7EA610;
+   border-right:1px solid #7EA610;
+}
+div.namecol {
+   width:100%;
+   margin: 3px 3px 3px 3px;
+}
+div.errorcol {
+   margin-left: 2px;
+   font-size:80%;
+   color:#999;
+   margin: 3px 3px 1px 3px;
+}
+
+div.headcol {
+   float: left;
+   font-weight: bold;
+   padding-bottom:8px;
+   padding-top:8px;
+   text-align:center;
+   color:#fff;
+   background-color:#333;
+   margin:0px;
+}
+div.headcol a, div.headrow a, div.headcollast a {
+   color: #fff;
+}
+div.headcollast {
+   float: left;
+   width:74px;
+   font-weight: bold;
+   text-align:center;
+   background-color:#333;
+}
+div.viewheadcol {
+   background-color:#333;
+   float:left;
+
+   line-height:30px;   
+   font-size:80%;
+   font-weight:bold;
+   color:#fff;
+   padding-left:3px;
+}
+div.floatright {
+   float: right;
+   margin-right:0px;
+}
+div.floatleft {
+   float: left;
+   margin-right:6px;
+}
+div.datacol {
+   float: left;
+   border-right: 1px dotted #aaa;
+   text-align:center;
+   min-height:1em;
+}
+div.datacollast {
+   float: left;
+   height:22px;
+   border-right: none;
+   text-align:center;
+   min-height:1em;
+}
+div.spacer {
+  clear: both;
+  font-size:10%;
+  height: 0px;
+  margin:0px;
+  padding:0px;
+}
+div.modal {
+   text-align:left;
+   padding: 5px 5px 5px 5px;
+}
+div.controls {
+   float: left;
+}
+div.controlcontainer {
+   text-align:center;
+}
+.trackerurl {
+   float:right;
+   font-size:90%;
+   margin:2px;
+}
+.smalltext {
+   font-size:80%;
+}
+.mediumtext {
+   font-size:90%;
+}
+.completeactive {
+   color: #393;
+   font-weight:bold;
+}
+.incompleteactive {
+   color: #339;
+}
+.completeinactive {
+   color: #151;
+   font-weight:bold;
+   }
+.incompleteinactive {
+   color: #555;
+}
+.age {
+   font-size:90%;
+   color: #456;
+}
+.datacol {
+   border-right: 1px dotted #999;
+}
+.download {
+   color: #393;
+}
+.upload {
+   color: #993333;
+}
+.green {   color: #7Ea610; }
+
+.gray { color: #666; }
+
+.row1 {
+   background-color:#eee;
+   padding:2px 0px 2px 0px;
+   border-top:1px solid #eee;
+   border-bottom:1px solid #eee;
+}
+.row2 {
+   background-color:#ddd;
+   padding:2px 0px 2px 0px;
+   border-top:1px solid #ddd;
+   border-bottom:1px solid #eee;
+}
+.row1:hover,.row2:hover {
+   background-color:#ccc;
+   border-top:1px solid #633;
+   border-bottom:1px solid #633;
+}
+.buttonstart {
+   background: url('images/start.gif') no-repeat center left;
+   font-size: 80%;
+   padding-left:18px;
+}
+.buttonstop {
+   background: url('images/stop.gif') no-repeat center left;
+   font-size: 80%;
+   padding-left:18px;
+}
+.buttondel {
+   background: url('images/delete.gif') no-repeat center left;
+   font-size: 80%;
+   padding-left:18px;
+}
+.buttonhashcheck {
+   background: url('images/hashcheck.gif') no-repeat center left;
+   font-size: 80%;
+   padding-left:18px;
+}
+.buttonrefresh {
+   background: url('images/refresh.gif') no-repeat center left;
+   font-size: 80%;
+   padding-left:18px;
+}
+.dirbrowse {
+   background: #ddd;
+}
+.bottomtab {
+   color:#fff;
+   border-bottom: 2px solid #7EA610;
+   background-color:#333;
+   padding:5px;
+}
+.bottomthin {
+   border-top:2px solid #7EA610;
+}
+.togglevis {
+   display:none;
+   background-color:#eee;
+   padding: 3px;
+   margin:0px ;
+   border:1px solid #7EA610; 
+}
+.diskalert {
+   font-size:16px;
+   color:red;
+   font-weight:bold;
+}
+
+/* FeedReader styles */
+.feedtitle {
+   margin-top:5px;
+   padding:8px 8px 3px 3px;
+   font-weight:bold;
+   color:#fff;
+   background-color:#333;
+   text-align: left;
+   border-bottom:4px solid #7EA610;
+}
+.feeditem {
+   background-color:#eee;
+   margin:2px 0px 0px 0px;
+   overflow:hidden;
+}
+
+.feedhilite {
+   color:#c33;
+}
+.controlbut {
+   font-size:80%;
+   font-weight:bold;
+   width:20px;
+}
+.feedlist {
+  margin: 1px 15px 1px 1px;
+  display: inline;
+}
+.feedlistul {
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 0px;
+}

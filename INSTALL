@@ -1,0 +1,63 @@
+#summary About rtGui
+
+= rtGui - A web based front-end for rTorrent =
+
+rtGui is a web based front end for rTorrent - the Linux command line BitTorrent client.  It's written in PHP and uses XML-RPC to communicate with the rTorrent client.
+
+For more information on rTorrent, see the home page: http://libtorrent.rakshasa.no/
+
+== Features ==
+  * List all torrent downloads or by started/stopped/complete/incomplete/seeding status.
+  * Ajax-style refresh information without reloading page.
+  * Sort view by any of the displayed columns.
+  * View detailed torrent information.
+  * Stop/start/hash-check torrent.
+  * Set upload/download speed cap.
+  * Add torrents by URL.
+  * Upload torrent to rtorrent watch-directory.
+  * Set priority per torrent or file.
+  * Peer listing.
+  * RSS Feed of completed torrents (rssfeed.php).
+  * Does not require mySQL or any other database.
+  * Bulk Stop/Start/Delete/Priority set.
+  * Tracker URL display with configurable colouring.
+  * Integrated RSS News Feed reader - download torrents directly to rTorrent (still work-in-progress).
+
+
+== Requirements ==
+  * rTorrent minium 0.8.2 / libtorrent 0.12.2 complied with XML-RPC library support - see http://libtorrent.rakshasa.no/ (rTorrent 0.8.4 / libtorrent 0.12.4 also supported)
+  * XML-RPC library - see http://xmlrpc-c.sourceforge.net/
+  * Apache webserver configured with XML-RPC - see http://libtorrent.rakshasa.no/wiki/RTorrentXMLRPCGuide
+  * PHP 5 with XML-RPC module - see http://www.php.net/
+  * A web browser - see http://www.mozilla.com/
+
+== Installation ==
+  * Modify your Apache and rTorrent installations to work with XML-RPC 
+   - see http://code.google.com/p/rtgui/wiki/ubuntu_rtgui
+  * Change to your webserver root directory, eg:
+   cd /srv/www/htdocs
+  * Extract the files from the archive you downloaded:
+   tar xvzf rtgui-x.x.x.tgz
+  * If this is a new installation, copy example config file:
+   cp config.php.example config.php
+  * Check settings:
+   gedit config.php
+  * Point your web browser to the directory, eg:
+   http://localhost/rtgui
+  * Enjoy :)
+
+== Known Problems ==
+Incorrect file size display on torrents over 4GB - see http://code.google.com/p/rtgui/wiki/CompilingRtorrent and http://code.google.com/p/rtgui/issues/detail?id=1&can=1
+
+== Security considerations ==
+Absolutely no thought whatsoever has been given to security in rtGui - do not run this on a publicly available website.  rtGui is intended for 'home' use where users can be considered as trusted.  A basic authentication mechanism is planned for future releases.  At the very least, you should password protect your webserver using .htaccess or similar (see http://en.wikipedia.org/wiki/Htaccess for more info).
+
+== In Development ==
+  * More torrent file management - move directory, delete from disk, etc.
+
+== Wanted! ==
+Feedback!
+
+== Other information ==
+  * rtGui incorporates the excellent subModal script by Seth Banks for the cool 'Web 2.0' background-dimming/dialog effect - included version 1.5 by permission - see http://www.subimage.com/dhtml/subModal/
+  * Also uses some icons from http://www.famfamfam.com/
