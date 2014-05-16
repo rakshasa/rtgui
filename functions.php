@@ -15,7 +15,7 @@ function do_xmlrpc($request) {
 // Get full list - retrieve full list of torrents 
 function get_full_list($view) {
    $request = xmlrpc_encode_request("d.multicall",
-       array($view,"d.get_base_filename=","d.get_base_path=","d.get_bytes_done=","d.get_chunk_size=","d.get_chunks_hashed=","d.get_complete=","d.get_completed_bytes=","d.get_completed_chunks=","d.get_connection_current=","d.get_connection_leech=","d.get_connection_seed=","d.get_creation_date=","d.get_directory=","d.get_down_rate=","d.get_down_total=","d.get_free_diskspace=","d.get_hash=","d.get_hashing=","d.get_ignore_commands=","d.get_left_bytes=","d.get_local_id=","d.get_local_id_html=","d.get_max_file_size=","d.get_message=","d.get_peers_min=","d.get_name=","d.get_peer_exchange=","d.get_peers_accounted=","d.get_peers_complete=","d.get_peers_connected=","d.get_peers_max=","d.get_peers_not_connected=","d.get_priority=","d.get_priority_str=","d.get_ratio=","d.get_size_bytes=","d.get_size_chunks=","d.get_size_files=","d.get_skip_rate=","d.get_skip_total=","d.get_state=","d.get_state_changed=","d.get_tied_to_file=","d.get_tracker_focus=","d.get_tracker_numwant=","d.get_tracker_size=","d.get_up_rate=","d.get_up_total=","d.get_uploads_max=","d.is_active=","d.is_hash_checked=","d.is_hash_checking=","d.is_multi_file=","d.is_open=","d.is_private="));
+       array($view,"d.base_filename=","d.base_path=","d.bytes_done=","d.chunk_size=","d.chunks_hashed=","d.complete=","d.completed_bytes=","d.completed_chunks=","d.connection_current=","d.connection_leech=","d.connection_seed=","d.creation_date=","d.directory=","d.down_rate=","d.down_total=","d.free_diskspace=","d.hash=","d.hashing=","d.ignore_commands=","d.left_bytes=","d.local_id=","d.local_id_html=","d.max_file_size=","d.message=","d.peers_min=","d.name=","d.peer_exchange=","d.peers_accounted=","d.peers_complete=","d.peers_connected=","d.peers_max=","d.peers_not_connected=","d.priority=","d.priority_str=","d.ratio=","d.size_bytes=","d.size_chunks=","d.size_files=","d.skip_rate=","d.skip_total=","d.state=","d.state_changed=","d.tied_to_file=","d.tracker_focus=","d.tracker_numwant=","d.tracker_size=","d.up_rate=","d.up_total=","d.uploads_max=","d.is_active=","d.is_hash_checked=","d.is_hash_checking=","d.is_multi_file=","d.is_open=","d.is_private="));
 
    $response = do_xmlrpc($request);
 
@@ -99,29 +99,29 @@ function get_full_list($view) {
 // Get list of files associated with a torrent...
 function get_file_list($hash) {
    $request = xmlrpc_encode_request("f.multicall",
-       array($hash,"","f.get_completed_chunks=","f.get_frozen_path=","f.get_is_created=","f.get_is_open=","f.get_last_touched=","f.get_match_depth_next=","f.get_match_depth_prev=","f.get_offset=","f.get_path=","f.get_path_components=","f.get_path_depth=","f.get_priority=","f.get_range_first=","f.get_range_second=","f.get_size_bytes=","f.get_size_chunks="));
+       array($hash,"","f.completed_chunks=","f.frozen_path=","f.is_created=","f.is_open=","f.last_touched=","f.match_depth_next=","f.match_depth_prev=","f.offset=","f.path=","f.path_components=","f.path_depth=","f.priority=","f.range_first=","f.range_second=","f.size_bytes=","f.size_chunks="));
    $response = do_xmlrpc($request);
    if (xmlrpc_is_fault($response)) {
        trigger_error("xmlrpc: $response[faultString] ($response[faultCode])");
    } else {
       $index=0;
       foreach($response AS $item) {
-             $retarr[$index]['get_completed_chunks']=$item[0];
-             $retarr[$index]['get_frozen_path']=$item[1];
-             $retarr[$index]['get_is_created']=$item[2];
-             $retarr[$index]['get_is_open']=$item[3];
-             $retarr[$index]['get_last_touched']=$item[4];
-             $retarr[$index]['get_match_depth_next']=$item[5];
-             $retarr[$index]['get_match_depth_prev']=$item[6];
-             $retarr[$index]['get_offset']=$item[7];
-             $retarr[$index]['get_path']=$item[8];
-             $retarr[$index]['get_path_components']=$item[9];
-             $retarr[$index]['get_path_depth']=$item[10];
-             $retarr[$index]['get_priority']=$item[11];
-             $retarr[$index]['get_range_first']=$item[12];
-             $retarr[$index]['get_range_second']=$item[13];
-             $retarr[$index]['get_size_bytes']=$item[14];
-             $retarr[$index]['get_size_chunks']=$item[15];
+             $retarr[$index]['completed_chunks']=$item[0];
+             $retarr[$index]['frozen_path']=$item[1];
+             $retarr[$index]['is_created']=$item[2];
+             $retarr[$index]['is_open']=$item[3];
+             $retarr[$index]['last_touched']=$item[4];
+             $retarr[$index]['match_depth_next']=$item[5];
+             $retarr[$index]['match_depth_prev']=$item[6];
+             $retarr[$index]['offset']=$item[7];
+             $retarr[$index]['path']=$item[8];
+             $retarr[$index]['path_components']=$item[9];
+             $retarr[$index]['path_depth']=$item[10];
+             $retarr[$index]['priority']=$item[11];
+             $retarr[$index]['range_first']=$item[12];
+             $retarr[$index]['range_second']=$item[13];
+             $retarr[$index]['size_bytes']=$item[14];
+             $retarr[$index]['size_chunks']=$item[15];
              $index++;
       }
    return $retarr;
@@ -131,24 +131,24 @@ function get_file_list($hash) {
 // Get list of trackers associated with torrent...
 function get_tracker_list($hash) {
    $request = xmlrpc_encode_request("t.multicall",
-       array($hash,"","t.get_group=","t.get_id=","t.get_min_interval=","t.get_normal_interval=","t.get_scrape_complete=","t.get_scrape_downloaded=","t.get_scrape_time_last=","t.get_type=","t.get_url=","t.is_enabled=","t.is_open="));
+       array($hash,"","t.group=","t.id=","t.min_interval=","t.normal_interval=","t.scrape_complete=","t.scrape_downloaded=","t.scrape_time_last=","t.type=","t.url=","t.is_enabled=","t.is_open="));
    $response = do_xmlrpc($request);
    if (xmlrpc_is_fault($response)) {
        trigger_error("xmlrpc: $response[faultString] ($response[faultCode])");
    } else {
       $index=0;
       foreach($response AS $item) {
-             $retarr[$index]['get_group']            =$item[0];
-             $retarr[$index]['get_id']               =$item[1];
-             $retarr[$index]['get_min_interval']     =$item[2];
-             $retarr[$index]['get_normal_interval']  =$item[3];
-             $retarr[$index]['get_scrape_complete']  =$item[4];
-             $retarr[$index]['get_scrape_downloaded']=$item[5];
-             $retarr[$index]['get_scrape_time_last'] =$item[6];
-             $retarr[$index]['get_type']             =$item[7];
-             $retarr[$index]['get_url']              =$item[8];
-             $retarr[$index]['is_enabled']           =$item[9];
-             $retarr[$index]['is_open']              =$item[10];
+             $retarr[$index]['group']            =$item[0];
+             $retarr[$index]['id']               =$item[1];
+             $retarr[$index]['min_interval']     =$item[2];
+             $retarr[$index]['normal_interval']  =$item[3];
+             $retarr[$index]['scrape_complete']  =$item[4];
+             $retarr[$index]['scrape_downloaded']=$item[5];
+             $retarr[$index]['scrape_time_last'] =$item[6];
+             $retarr[$index]['type']             =$item[7];
+             $retarr[$index]['url']              =$item[8];
+             $retarr[$index]['is_enabled']       =$item[9];
+             $retarr[$index]['is_open']          =$item[10];
              $index++;
       }
    return $retarr;
@@ -157,9 +157,9 @@ function get_tracker_list($hash) {
 
 // Get upload/download cap
 function get_global_stats() {
-   $retarr['upload_cap'] = do_xmlrpc(xmlrpc_encode_request("get_upload_rate",array("")));
-   $retarr['download_cap'] = do_xmlrpc(xmlrpc_encode_request("get_download_rate",array("")));
-   $retarr['diskspace'] = do_xmlrpc(xmlrpc_encode_request("get_directory",array("")));
+   $retarr['upload_cap'] = do_xmlrpc(xmlrpc_encode_request("throttle.global_up.max_rate",array("")));
+   $retarr['download_cap'] = do_xmlrpc(xmlrpc_encode_request("throttle.global_down.max_rate",array("")));
+   $retarr['diskspace'] = do_xmlrpc(xmlrpc_encode_request("directory.default",array("")));
    $retarr['library_version'] = do_xmlrpc(xmlrpc_encode_request("system.library_version",array("")));
    $retarr['client_version'] = do_xmlrpc(xmlrpc_encode_request("system.client_version",array("")));
    return $retarr;

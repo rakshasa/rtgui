@@ -81,19 +81,19 @@ if ($r_select=="files") {
    $index=0;
    foreach($data AS $item) {
       echo "<tr class='$thisrow'>";
-      echo "<td colspan=5>".wordwrap($item['get_path'],90,"<br>\n",TRUE)."</td>";
+      echo "<td colspan=5>".wordwrap($item['path'],90,"<br>\n",TRUE)."</td>";
       echo "</tr><tr class='$thisrow'>\n";
       echo "<td class='datacol'>&nbsp;</td>";
-      echo "<td class='datacol' align=center nowrap>".format_bytes($item['get_size_bytes'])."</td>";
-      echo "<td class='datacol' align=center nowrap>".@round(($item['get_completed_chunks']/$item['get_size_chunks'])*100)." %<br>\n";
-      echo percentbar(@round((($item['get_completed_chunks']/$item['get_size_chunks'])*100)/2));
+      echo "<td class='datacol' align=center nowrap>".format_bytes($item['size_bytes'])."</td>";
+      echo "<td class='datacol' align=center nowrap>".@round(($item['completed_chunks']/$item['size_chunks'])*100)." %<br>\n";
+      echo percentbar(@round((($item['completed_chunks']/$item['size_chunks'])*100)/2));
       echo "</td>\n";
-      echo "<td class='datacol' align=center nowrap>".$item['get_completed_chunks']." / ".$item['get_size_chunks']."</td>\n";
+      echo "<td class='datacol' align=center nowrap>".$item['completed_chunks']." / ".$item['size_chunks']."</td>\n";
       echo "<td align=center>\n";
       echo "<select name='set_fpriority[$index]'>\n";
-      echo "<option value='0' ".($item['get_priority']==0 ? "selected" : "").">Off</option>\n";
-      echo "<option value='1' ".($item['get_priority']==1 ? "selected" : "").">Normal</option>\n";
-      echo "<option value='2' ".($item['get_priority']==2 ? "selected" : "").">High</option>\n";
+      echo "<option value='0' ".($item['priority']==0 ? "selected" : "").">Off</option>\n";
+      echo "<option value='1' ".($item['priority']==1 ? "selected" : "").">Normal</option>\n";
+      echo "<option value='2' ".($item['priority']==2 ? "selected" : "").">High</option>\n";
       echo "</select>\n";
       echo "<input type='hidden' name='hash' value='$r_hash'>\n";
       echo "</td>\n";
@@ -162,12 +162,12 @@ if ($r_select=="tracker") {
    $thisrow="row1";
    foreach($data AS $item) {
       echo "<tr class='$thisrow'>";
-      echo "<td colspan=5>".wordwrap($item['get_url'],90,"<br>\n",TRUE)."</td>";
+      echo "<td colspan=5>".wordwrap($item['url'],90,"<br>\n",TRUE)."</td>";
       echo "</tr><tr class='$thisrow'>\n";
       echo "<td class='datacol' width='80%'>&nbsp;</td>";
-      echo "<td class='datacol' align=center nowrap>".($item['get_scrape_time_last']>0 ? date("Y-m-d H:i",@round($item['get_scrape_time_last']/1000000)) : "never")."</td>";
-      echo "<td class='datacol' align=center nowrap>".@round($item['get_normal_interval']/60)." mins</td>";
-      echo "<td class='datacol' align=center nowrap>".$item['get_scrape_complete']."</td>";
+      echo "<td class='datacol' align=center nowrap>".($item['scrape_time_last']>0 ? date("Y-m-d H:i",@round($item['scrape_time_last']/1000000)) : "never")."</td>";
+      echo "<td class='datacol' align=center nowrap>".@round($item['normal_interval']/60)." mins</td>";
+      echo "<td class='datacol' align=center nowrap>".$item['scrape_complete']."</td>";
       echo "<td align=center nowrap>".($item['is_enabled']==1 ? "Yes" : "No")."</td>";
       if ($thisrow=="row1") {$thisrow="row2";} else {$thisrow="row1";}
    }

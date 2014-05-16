@@ -16,7 +16,7 @@ if (isset($r_addurl)) $r_cmd="addurl";
 if (isset($r_set_fpriority)) {
    $index=0;
    foreach($r_set_fpriority as $item) {
-      $response=do_xmlrpc(xmlrpc_encode_request("f.set_priority",array("$r_hash",$index,"$item")));
+      $response=do_xmlrpc(xmlrpc_encode_request("f.priority.set",array("$r_hash",$index,"$item")));
       $index++;
    }
    $r_cmd="";
@@ -26,7 +26,7 @@ if (isset($r_set_fpriority)) {
 if (isset($r_set_tpriority)) {
    $index=0;
    foreach($r_set_tpriority as $item) {
-      $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($r_hash[$index],$item)));
+      $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($r_hash[$index],$item)));
       $index++;
    }
    $r_cmd="";
@@ -46,8 +46,8 @@ switch($r_cmd) {
       $response = do_xmlrpc(xmlrpc_encode_request("d.check_hash",array("$r_hash")));
       break;
    case "setcap":
-      $response = do_xmlrpc(xmlrpc_encode_request("set_upload_rate",array("$r_setmaxup")));    
-      $response = do_xmlrpc(xmlrpc_encode_request("set_download_rate",array("$r_setmaxdown")));
+      $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_up.max_rate.set_kb",array("$r_setmaxup")));    
+      $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_down.max_rate.set_kb",array("$r_setmaxdown")));
       break;
    case "addurl":
       $response = do_xmlrpc(xmlrpc_encode_request("load_start",array("$r_addurl")));    
