@@ -37,19 +37,19 @@ if (isset($r_bulkaction) && is_array($r_select)) {
          break;
          
          case "pri_high":
-         $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($hash,3)));
+         $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($hash,3)));
          break;
          
          case "pri_normal":
-         $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($hash,2)));
+         $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($hash,2)));
          break;
          
          case "pri_low":
-         $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($hash,1)));
+         $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($hash,1)));
          break;
          
          case "pri_off":
-         $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($hash,0)));
+         $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($hash,0)));
          break;
       }
    }
@@ -62,7 +62,7 @@ if (isset($r_bulkaction) && is_array($r_select)) {
 if (isset($r_set_fpriority)) {
    $index=0;
    foreach($r_set_fpriority as $item) {
-      $response=do_xmlrpc(xmlrpc_encode_request("f.set_priority",array("$r_hash",$index,"$item")));
+      $response=do_xmlrpc(xmlrpc_encode_request("f.priority.set",array("$r_hash",$index,"$item")));
       $index++;
    }
    $response=do_xmlrpc(xmlrpc_encode_request("d.update_priorities","$r_hash"));
@@ -71,7 +71,7 @@ if (isset($r_set_fpriority)) {
 
 // Set torrent priorities...
 if (isset($r_set_tpriority)) {
-   $response=do_xmlrpc(xmlrpc_encode_request("d.set_priority",array($r_hash,$r_set_tpriority)));
+   $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($r_hash,$r_set_tpriority)));
    $r_cmd="";
 }
 
@@ -100,7 +100,7 @@ if (isset($r_uploadtorrent)) {
 
 // Move torrent dir
 if (isset($r_newdir)) {
-   $response=do_xmlrpc(xmlrpc_encode_request("d.set_directory",array($r_hash,$r_newdir)));
+   $response=do_xmlrpc(xmlrpc_encode_request("d.directory.set",array($r_hash,$r_newdir)));
 }
 
 switch($r_cmd) {

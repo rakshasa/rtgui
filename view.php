@@ -90,20 +90,20 @@ if ($r_select=="files") {
    foreach($data AS $item) {
       echo "<div class='$thisrow'>\n";
       echo "<div class='namecol'>\n";
-      echo mb_wordwrap($item['get_path'],90,"<br/>\n",TRUE);
+      echo mb_wordwrap($item['path'],90,"<br/>\n",TRUE);
       echo "</div>\n";
       echo "<div class='floatright'>";
-      echo "<div class='datacol smalltext' style='width:90px;'>".format_bytes($item['get_size_bytes'])."</div>\n";
+      echo "<div class='datacol smalltext' style='width:90px;'>".format_bytes($item['size_bytes'])."</div>\n";
       echo "<div class='datacol smalltext' style='width:90px;'>";
-      echo @round(($item['get_completed_chunks']/$item['get_size_chunks'])*100)." %<br/>\n";
-      echo percentbar(@round((($item['get_completed_chunks']/$item['get_size_chunks'])*100)/2));
+      echo @round(($item['completed_chunks']/$item['size_chunks'])*100)." %<br/>\n";
+      echo percentbar(@round((($item['completed_chunks']/$item['size_chunks'])*100)/2));
       echo "</div>\n";
-      echo "<div class='datacol smalltext' style='width:90px;'>".$item['get_completed_chunks']." / ".$item['get_size_chunks']."</div>\n";
+      echo "<div class='datacol smalltext' style='width:90px;'>".$item['completed_chunks']." / ".$item['size_chunks']."</div>\n";
       echo "<div class='datacollast smalltext' style='width:90px;'>";
       echo "<select name='set_fpriority[$index]' class='smalltext'>\n";
-      echo "<option value='0' ".($item['get_priority']==0 ? "selected" : "").">Off</option>\n";
-      echo "<option value='1' ".($item['get_priority']==1 ? "selected" : "").">Normal</option>\n";
-      echo "<option value='2' ".($item['get_priority']==2 ? "selected" : "").">High</option>\n";
+      echo "<option value='0' ".($item['priority']==0 ? "selected" : "").">Off</option>\n";
+      echo "<option value='1' ".($item['priority']==1 ? "selected" : "").">Normal</option>\n";
+      echo "<option value='2' ".($item['priority']==2 ? "selected" : "").">High</option>\n";
       echo "</select>\n";
       echo "<input type='hidden' name='hash' value='$r_hash' />\n";
       echo "</div>\n";
@@ -135,13 +135,13 @@ if ($r_select=="tracker") {
    foreach($data AS $item) {
       echo "<div class='$thisrow'>\n";
       echo "<div class='namecol'>\n";
-      echo mb_wordwrap($item['get_url'],90,"<br/>\n",TRUE);
+      echo mb_wordwrap($item['url'],90,"<br/>\n",TRUE);
       echo "</div>\n";
       echo "<div class='floatright'>";
-      echo "<div class='datacol smalltext'  style='width:124px;'>".($item['get_scrape_time_last']>0 ? date("Y-m-d
-H:i",$item['get_scrape_time_last']) : "never")."</div>\n";
-      echo "<div class='datacol smalltext' style='width:90px;'>".@round($item['get_normal_interval']/60)."</div>\n";
-      echo "<div class='datacol smalltext' style='width:90px;'>".$item['get_scrape_complete']." / ".$item['get_scrape_incomplete']."</div>\n";
+      echo "<div class='datacol smalltext'  style='width:124px;'>".($item['scrape_time_last']>0 ? date("Y-m-d
+H:i",$item['scrape_time_last']) : "never")."</div>\n";
+      echo "<div class='datacol smalltext' style='width:90px;'>".@round($item['normal_interval']/60)."</div>\n";
+      echo "<div class='datacol smalltext' style='width:90px;'>".$item['scrape_complete']." / ".$item['scrape_incomplete']."</div>\n";
       echo "<div class='datacollast smalltext' style='width:90px;'>".($item['is_enabled']==1 ? "Yes" : "No")."</div>\n";
       echo "</div>\n";  // end floatright div
       echo "<div class='spacer'>&nbsp;</div>\n";
@@ -165,16 +165,16 @@ if ($r_select=="peers") {
    foreach($data AS $item) {
       echo "<div class='$thisrow'>\n";
       echo "<div class='namecol smalltext'>\n";
-      echo "<a href='http://www.who.is/whois-ip/ip-address/".$item['get_address']."/' target='_blank'>".gethostbyaddr($item['get_address'])."</a>";
-      echo ":".$item['get_port']."&nbsp;&nbsp;<i>".$item['get_client_version']."</i>";
+      echo "<a href='http://www.who.is/whois-ip/ip-address/".$item['address']."/' target='_blank'>".gethostbyaddr($item['address'])."</a>";
+      echo ":".$item['port']."&nbsp;&nbsp;<i>".$item['client_version']."</i>";
       $flags=($item['is_encrypted'] ? "enc " : "").($item['is_incoming'] ? "inc " : "").($item['is_obfuscated'] ? "obs " : "").($item['is_snubbed'] ? "snb " : "");
       echo ($flags!="" ? "&nbsp;&nbsp;Flags: ".$flags : "");      
       echo "</div>\n";
       echo "<div class='floatright'>";        
-      echo "<div class='datacol smalltext' style='width:90px;'>&nbsp;".$item['get_completed_percent']. "%<br/>".percentbar(@round($item['get_completed_percent'])/2)."</div>\n";
-      echo "<div class='datacol smalltext download' style='width:90px;'>&nbsp;".($item['get_down_rate']>0 ? format_bytes($item['get_down_rate'])."/sec<br/>" : "").format_bytes($item['get_down_total'])."</div>\n";
-      echo "<div class='datacol smalltext upload' style='width:90px;'>&nbsp;".($item['get_up_rate']>0 ? format_bytes($item['get_up_rate'])."/sec<br/>" : "").format_bytes($item['get_up_total'])."</div>\n";
-      echo "<div class='datacollast smalltext' style='width:90px;'>&nbsp;".($item['get_peer_rate']>0 ? format_bytes($item['get_peer_rate'])."ps<br/>" : "").format_bytes($item['get_peer_total'])."</div>\n";
+      echo "<div class='datacol smalltext' style='width:90px;'>&nbsp;".$item['completed_percent']. "%<br/>".percentbar(@round($item['completed_percent'])/2)."</div>\n";
+      echo "<div class='datacol smalltext download' style='width:90px;'>&nbsp;".($item['down_rate']>0 ? format_bytes($item['down_rate'])."/sec<br/>" : "").format_bytes($item['down_total'])."</div>\n";
+      echo "<div class='datacol smalltext upload' style='width:90px;'>&nbsp;".($item['up_rate']>0 ? format_bytes($item['up_rate'])."/sec<br/>" : "").format_bytes($item['up_total'])."</div>\n";
+      echo "<div class='datacollast smalltext' style='width:90px;'>&nbsp;".($item['peer_rate']>0 ? format_bytes($item['peer_rate'])."ps<br/>" : "").format_bytes($item['peer_total'])."</div>\n";
       echo "</div>\n";  // end floatright div
       echo "<div class='spacer'>&nbsp;</div>\n";
       echo "</div>\n";  // end of $thisrow div 
