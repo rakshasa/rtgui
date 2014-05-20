@@ -20,7 +20,15 @@ $execstart=$start=microtime(true);
 session_start();
 include "config.php";
 include "functions.php";
-import_request_variables("gp","r_");
+//import_request_variables("gp","r_");
+
+$r_setsortkey = isset($_GET['setsortkey']) ? trim($_GET['setsortkey']) : null;
+$r_setsortord = isset($_GET['setsortord']) ? trim($_GET['setsortord']) : null;
+$r_setview = isset($_GET['setview']) ? trim($_GET['setview']) : null;
+$r_settrackerfilter = isset($_GET['settrackerfilter']) ? trim($_GET['settrackerfilter']) : null;
+$r_setfilterinvert = isset($_GET['setfilterinvert']) ? trim($_GET['setfilterinvert']) : null;
+$r_reload = isset($_GET['reload']) ? trim($_GET['reload']) : null;
+$r_debug = isset($_GET['debug']) ? trim($_GET['debug']) : null;
 
 // Try using alternative XMLRPC library from http://sourceforge.net/projects/phpxmlrpc/  (see http://code.google.com/p/rtgui/issues/detail?id=19)
 if(!function_exists('xml_parser_create')) {
@@ -30,25 +38,25 @@ if(!function_exists('xml_parser_create')) {
 
 // Sort out the session variables for sort order, sort key and current view...
 if (!isset($_SESSION['sortkey'])) $_SESSION['sortkey']="name";
-if (isset($r_setsortkey)) $_SESSION['sortkey']=$r_setsortkey;
+if ($r_setsortkey) $_SESSION['sortkey']=$r_setsortkey;
 
 if (!isset($_SESSION['sortord'])) $_SESSION['sortord']="asc";
-if (isset($r_setsortord)) $_SESSION['sortord']=$r_setsortord;
+if ($r_setsortord) $_SESSION['sortord']=$r_setsortord;
 
 if (!isset($_SESSION['view'])) $_SESSION['view']="main";
-if (isset($r_setview)) $_SESSION['view']=$r_setview;
+if ($r_setview) $_SESSION['view']=$r_setview;
 
 if (!isset($_SESSION['tracker_filter'])) $_SESSION['tracker_filter']="";
-if (isset($r_settrackerfilter)) $_SESSION['tracker_filter']=$r_settrackerfilter;
+if ($r_settrackerfilter) $_SESSION['tracker_filter']=$r_settrackerfilter;
 
 if (!isset($_SESSION['filter_invert'])) $_SESSION['filter_invert']=0;
-if (isset($r_setfilterinvert)) $_SESSION['filter_invert']=$r_setfilterinvert;
+if ($r_setfilterinvert) $_SESSION['filter_invert']=$r_setfilterinvert;
 
-if (isset($r_reload)) unset($_SESSION['lastget']);
+if ($r_reload) unset($_SESSION['lastget']);
 
 if (!isset($_SESSION['refresh'])) $_SESSION['refresh']=$defaultrefresh;
 
-if (!isset($r_debug)) $r_debug=0;
+if (!$r_debug) $r_debug=0;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -215,8 +223,8 @@ $tottorrents=0;
 foreach($data AS $item) {
    $tottorrents++;
    $displaythis=FALSE;
-   if ($_SESSION['tracker_filter']=="") { 
-      $displaythis=TRUE; 
+   if ($_SESSION['tracker_filter']=="") {
+      $displaythis=TRUE;
    }
    if ($_SESSION['filter_invert']==0) {
       // Filter by tracker URL
@@ -247,8 +255,8 @@ foreach($data AS $item) {
             }
          }
       }
-      
-   }   
+
+   }
    if ($displaythis) {
       $totdisp++;
       echo "<div class='$thisrow'>\n";
@@ -266,13 +274,13 @@ foreach($data AS $item) {
          // echo $item['tracker_url'];
          $urlstyle=$tracker_hilite_default;
          foreach($tracker_hilite as $hilite) {
-            foreach ($hilite as $thisurl) { 
+            foreach ($hilite as $thisurl) {
                if (stristr($item['tracker_url'],$thisurl)==TRUE) { $urlstyle=$hilite[0]; }
             }
          }
          echo "<div class='trackerurl' id='tracker' ><a style='color: $urlstyle ;' id='tracker' href='?settrackerfilter=".$item['tracker_url']."&setfilterinvert=0'>".$item['tracker_url']."</a>&nbsp;</div>";
       }
-      
+
       // Torrent name
       echo "<input type='checkbox' name='select[]' value='".$item['hash']."'  /> ";
       echo "<a class='submodal-600-520 $statusstyle' href='view.php?hash=".$item['hash']."'>".htmlspecialchars($item['name'], ENT_QUOTES)."</a>&nbsp;";
@@ -291,7 +299,7 @@ foreach($data AS $item) {
       echo "<a href='control.php?hash=".$item['hash']."&amp;cmd=delete' onClick='return confirm(\"Delete torrent - are you sure? (This will not delete data from disk)\");'><img align='bottom' alt='Delete torrent' border=0 src='images/delete.gif' width=16 height=16 /></a> \n";
       echo "<a class='submodal-600-520' href='view.php?hash=".$item['hash']."'><img alt='Torrent info' src='images/view.gif' width=16 height=16 /></a><br/>\n";
       echo "</div>\n";
-      
+
       // Stats row...
       echo "<div class='datacol' style='width:89px;' id='t".$item['hash']."status_string'><img src='images/".$statusstyle.".gif' width=10 height=9 alt='Status' />".$item['status_string']."</div>\n";
       echo "<div class='datacol' style='width:89px;' id='t".$item['hash']."percent_complete'>".$item['percent_complete']." %<br/>".percentbar(@round(($item['percent_complete']/2)))."</div>\n";

@@ -18,10 +18,20 @@
 
 include "functions.php";
 include "config.php";
-import_request_variables("gp","r_");
+//import_request_variables("gp","r_");
+
+$r_bulkaction = isset($_POST['bulkaction']) ? $_POST['bulkaction'] : null;
+$r_select = isset($_POST['select']) ? $_POST['select'] : null;
+$r_cmd = isset($_POST['cmd']) ? $_POST['cmd'] : null;
+$r_set_fpriority = isset($_POST['set_fpriority']) ? $_POST['set_fpriority'] : array();
+$r_hash = isset($_POST['hash']) ? $_POST['hash'] : null;
+$r_set_tpriority = isset($_POST['set_tpriority']) ? $_POST['set_tpriority'] : null;
+$r_addurl = isset($_POST['addurl']) ? $_POST['addurl'] : null;
+$r_uploadtorrent = isset($_POST['uploadtorrent']) ? $_POST['uploadtorrent'] : null;
+$r_newdir = isset($_POST['newdir']) ? $_POST['newdir'] : null;
 
 // Bulk stop/start/delete torrents...
-if (isset($r_bulkaction) && is_array($r_select)) {
+if ($r_bulkaction && is_array($r_select)) {
    foreach($r_select as $hash) {
       switch($r_bulkaction) {
          case "stop":
@@ -59,7 +69,7 @@ if (isset($r_bulkaction) && is_array($r_select)) {
 
 
 // Set file priorities...
-if (isset($r_set_fpriority)) {
+if (!empty($r_set_fpriority)) {
    $index=0;
    foreach($r_set_fpriority as $item) {
       $response=do_xmlrpc(xmlrpc_encode_request("f.priority.set",array("$r_hash",$index,"$item")));
@@ -70,18 +80,18 @@ if (isset($r_set_fpriority)) {
 }
 
 // Set torrent priorities...
-if (isset($r_set_tpriority)) {
+if ($r_set_tpriority != '') {
    $response=do_xmlrpc(xmlrpc_encode_request("d.priority.set",array($r_hash,$r_set_tpriority)));
    $r_cmd="";
 }
 
 // Add torrent URL...
-if (isset($r_addurl)) {
+if ($r_addurl != '') {
    //global $load_start;
    if ($load_start)
-     $response = do_xmlrpc(xmlrpc_encode_request("load_start",array("$r_addurl")));
+     $response = do_xmlrpc(xmlrpc_encode_request("load_start",array($r_addurl)));
    else
-     $response = do_xmlrpc(xmlrpc_encode_request("load",array("$r_addurl")));
+     $response = do_xmlrpc(xmlrpc_encode_request("load",array($r_addurl)));
 }
 
 // Upload torrent file...
@@ -99,7 +109,7 @@ if (isset($r_uploadtorrent)) {
 }
 
 // Move torrent dir
-if (isset($r_newdir)) {
+if ($r_newdir != '') {
    $response=do_xmlrpc(xmlrpc_encode_request("d.directory.set",array($r_hash,$r_newdir)));
 }
 

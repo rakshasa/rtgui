@@ -19,11 +19,10 @@
 $execstart=$start=microtime(true);
 include "functions.php";
 include "config.php";
-import_request_variables("gp","r_");
+//import_request_variables("gp","r_");
 
-if (!isset($r_select)) {
-   $r_select="files";
-}
+$r_select = isset($_GET['select']) ? trim($_GET['select']) : 'files';
+$r_hash = isset($_GET['hash']) ? trim($_GET['hash']) : null;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -118,7 +117,7 @@ if ($r_select=="files") {
    echo "<input type='submit' value='Save' />";
    echo "</div>\n";
    echo "</form>\n";
-   
+
    echo "</div>\n";  // end container div
 }
 
@@ -145,7 +144,7 @@ H:i",$item['scrape_time_last']) : "never")."</div>\n";
       echo "<div class='datacollast smalltext' style='width:90px;'>".($item['is_enabled']==1 ? "Yes" : "No")."</div>\n";
       echo "</div>\n";  // end floatright div
       echo "<div class='spacer'>&nbsp;</div>\n";
-      echo "</div>\n";  // end of $thisrow div      
+      echo "</div>\n";  // end of $thisrow div
       if ($thisrow=="row1") {$thisrow="row2";} else {$thisrow="row1";}
    }
    echo "<div class='bottomthin'> </div>\n";
@@ -168,16 +167,16 @@ if ($r_select=="peers") {
       echo "<a href='http://www.who.is/whois-ip/ip-address/".$item['address']."/' target='_blank'>".gethostbyaddr($item['address'])."</a>";
       echo ":".$item['port']."&nbsp;&nbsp;<i>".$item['client_version']."</i>";
       $flags=($item['is_encrypted'] ? "enc " : "").($item['is_incoming'] ? "inc " : "").($item['is_obfuscated'] ? "obs " : "").($item['is_snubbed'] ? "snb " : "");
-      echo ($flags!="" ? "&nbsp;&nbsp;Flags: ".$flags : "");      
+      echo ($flags!="" ? "&nbsp;&nbsp;Flags: ".$flags : "");
       echo "</div>\n";
-      echo "<div class='floatright'>";        
+      echo "<div class='floatright'>";
       echo "<div class='datacol smalltext' style='width:90px;'>&nbsp;".$item['completed_percent']. "%<br/>".percentbar(@round($item['completed_percent'])/2)."</div>\n";
       echo "<div class='datacol smalltext download' style='width:90px;'>&nbsp;".($item['down_rate']>0 ? format_bytes($item['down_rate'])."/sec<br/>" : "").format_bytes($item['down_total'])."</div>\n";
       echo "<div class='datacol smalltext upload' style='width:90px;'>&nbsp;".($item['up_rate']>0 ? format_bytes($item['up_rate'])."/sec<br/>" : "").format_bytes($item['up_total'])."</div>\n";
       echo "<div class='datacollast smalltext' style='width:90px;'>&nbsp;".($item['peer_rate']>0 ? format_bytes($item['peer_rate'])."ps<br/>" : "").format_bytes($item['peer_total'])."</div>\n";
       echo "</div>\n";  // end floatright div
       echo "<div class='spacer'>&nbsp;</div>\n";
-      echo "</div>\n";  // end of $thisrow div 
+      echo "</div>\n";  // end of $thisrow div
       if ($thisrow=="row1") {$thisrow="row2";} else {$thisrow="row1";}
    }
    echo "<div class='bottomthin'> </div>\n";
@@ -252,7 +251,7 @@ if ($r_select=="storage") {
    }
    $torrentdir=htmlentities($torrentdir,ENT_QUOTES,"UTF-8");
    if (isset($r_dir)) $seldir=$r_dir;
-   
+
    echo "<p style='background-color:#ddd;padding:3px;'><span id='seldir'>".$seldir."</span><span class='gray'>".$torrentdir."</span></p>\n";
 
    echo "<form action='control.php' method='post' name='directory' onSubmit=\"document.directory.newdir.value=document.getElementById('seldir').innerHTML;\">\n";
@@ -264,8 +263,8 @@ if ($r_select=="storage") {
       echo "<input type='submit' name='setdir'  value='Set directory'>\n";
    }
    echo "</fieldset>\n";
-   echo "</form>\n";  
-   
+   echo "</form>\n";
+
    echo "<iframe frameborder=0 src='dirbrowser.php?dir=".urlencode($seldir)."&amp;hilitedir=".urlencode($torrentdir)."' width=100% height=300px>iFrame</iframe>";
 
    echo "<br>&nbsp;</div>"; // end container div
