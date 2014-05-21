@@ -19,7 +19,9 @@
 session_start();
 include "config.php";
 include "functions.php";
-import_request_variables("gp","r_");
+//import_request_variables("gp","r_");
+
+$r_view = $_GET['view'];
 
 if (!isset($r_view)) $r_view="main";
 $data=get_full_list("$r_view");

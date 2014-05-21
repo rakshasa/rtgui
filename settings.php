@@ -20,19 +20,24 @@ session_start();
 $execstart=$start=microtime(true);
 include "functions.php";
 include "config.php";
-import_request_variables("gp","r_");
+//import_request_variables("gp","r_");
+
+$r_setrefresh = isset($_POST['setrefresh']) ? intval($_POST['setrefresh']) : null;
+$r_setmaxup = isset($_POST['setmaxup']) ? intval($_POST['setmaxup']) : null;
+$r_setmaxdown = isset($_POST['setmaxdown']) ? intval($_POST['setmaxdown']) : null;
+$r_submit = isset($_POST['submit']) ? trim($_POST['submit']) : null;
 
 if (!isset($_SESSION['refresh'])) $_SESSION['refresh']=$defaultrefresh;
-if (isset($r_setrefresh)) $_SESSION['refresh']=$r_setrefresh;
+if ($r_setrefresh) $_SESSION['refresh']=$r_setrefresh;
 
-if (isset($r_setmaxup) || isset($r_setmaxdown)) {
+if ($r_setmaxup || $r_setmaxdown) {
    $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_up.max_rate.set",array("$r_setmaxup")));    
    $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_down.max_rate.set",array("$r_setmaxdown")));
 }
 
 $globalstats=get_global_stats();
 
-if (isset($r_submit)) {
+if ($r_submit != '') {
    echo "<script>window.top.location='index.php?reload=1';</script>";
    die();
 }
