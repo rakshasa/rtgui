@@ -16,7 +16,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with rtGui.  If not, see <http://www.gnu.org/licenses/>.
 
-import_request_variables("gp","r_");
+extract($_REQUEST, EXTR_PREFIX_ALL|EXTR_REFS, 'r');
 if ($r_dir=="" || !isset($r_dir)) $r_dir="/";
 if (!isset($r_hilitedir)) $r_hilitedir="";
 ?>

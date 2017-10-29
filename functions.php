@@ -37,8 +37,8 @@ function do_xmlrpc($request) {
 
 // Get full list - retrieve full list of torrents 
 function get_full_list($view) {
-   $request = xmlrpc_encode_request("d.multicall",
-       array($view,"d.base_filename=","d.base_path=","d.bytes_done=","d.chunk_size=","d.chunks_hashed=","d.complete=","d.completed_bytes=","d.completed_chunks=","d.connection_current=","d.connection_leech=","d.connection_seed=","d.creation_date=","d.directory=","d.down.rate=","d.down.total=","d.free_diskspace=","d.hash=","d.hashing=","d.ignore_commands=","d.left_bytes=","d.local_id=","d.local_id_html=","d.max_file_size=","d.message=","d.peers_min=","d.name=","d.peer_exchange=","d.peers_accounted=","d.peers_complete=","d.peers_connected=","d.peers_max=","d.peers_not_connected=","d.priority=","d.priority_str=","d.ratio=","d.size_bytes=","d.size_chunks=","d.size_files=","d.skip.rate=","d.skip.total=","d.state=","d.state_changed=","d.tied_to_file=","d.tracker_focus=","d.tracker_numwant=","d.tracker_size=","d.up.rate=","d.up.total=","d.uploads_max=","d.is_active=","d.is_hash_checked=","d.is_hash_checking=","d.is_multi_file=","d.is_open=","d.is_private="));
+   $request = xmlrpc_encode_request("d.multicall2",
+       array("",$view,"d.base_filename=","d.base_path=","d.bytes_done=","d.chunk_size=","d.chunks_hashed=","d.complete=","d.completed_bytes=","d.completed_chunks=","d.connection_current=","d.connection_leech=","d.connection_seed=","d.creation_date=","d.directory=","d.down.rate=","d.down.total=","d.free_diskspace=","d.hash=","d.hashing=","d.ignore_commands=","d.left_bytes=","d.local_id=","d.local_id_html=","d.max_file_size=","d.message=","d.peers_min=","d.name=","d.peer_exchange=","d.peers_accounted=","d.peers_complete=","d.peers_connected=","d.peers_max=","d.peers_not_connected=","d.priority=","d.priority_str=","d.ratio=","d.size_bytes=","d.size_chunks=","d.size_files=","d.skip.rate=","d.skip.total=","d.state=","d.state_changed=","d.tied_to_file=","d.tracker_focus=","d.tracker_numwant=","d.tracker_size=","d.up.rate=","d.up.total=","d.uploads_max=","d.is_active=","d.is_hash_checked=","d.is_hash_checking=","d.is_multi_file=","d.is_open=","d.is_private="));
    $response = do_xmlrpc($request);
 
    if (xmlrpc_is_fault($response)) {
@@ -241,22 +241,8 @@ function get_global_stats() {
 // Get overall download/upload rates... (Surely there's a better way of doing this!)
 function get_global_rates() {
    global $downloaddir;
-   $request = xmlrpc_encode_request("d.multicall",array("main","d.down.rate=","d.up.rate="));
-   $response = do_xmlrpc($request);
-   if (xmlrpc_is_fault($response)) {
-       trigger_error("xmlrpc: $response[faultString] ($response[faultCode])");
-   } else {
-      $index=0;
-      $totdown=0;
-      $totup=0;
-      foreach($response AS $item) {
-         $totdown+=$item[0];
-         $totup+=$item[1];
-         $index++;
-      }
-   }
-   $retarr[0]['ratedown']=$totdown;
-   $retarr[0]['rateup']=$totup;
+   $retarr[0]['ratedown']=do_xmlrpc(xmlrpc_encode_request("throttle.global_down.rate",array("")));
+   $retarr[0]['rateup']=do_xmlrpc(xmlrpc_encode_request("throttle.global_up.rate",array("")));
    $retarr[0]['diskspace']=@disk_free_space($downloaddir);
    return $retarr;
 }
