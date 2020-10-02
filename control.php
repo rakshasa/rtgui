@@ -72,7 +72,7 @@ if ($r_bulkaction && is_array($r_select)) {
 if (!empty($r_set_fpriority)) {
    $index=0;
    foreach($r_set_fpriority as $item) {
-      $response=do_xmlrpc(xmlrpc_encode_request("f.priority.set",array("$r_hash",$index,"$item")));
+      $response=do_xmlrpc(xmlrpc_encode_request("f.priority.set",array("$r_hash:f$index","$item")));
       $index++;
    }
    $response=do_xmlrpc(xmlrpc_encode_request("d.update_priorities","$r_hash"));
@@ -89,9 +89,9 @@ if ($r_set_tpriority != '') {
 if ($r_addurl != '') {
    //global $load_start;
    if ($load_start)
-     $response = do_xmlrpc(xmlrpc_encode_request("load_start",array($r_addurl)));
+     $response = do_xmlrpc(xmlrpc_encode_request("load.start",array("",$r_addurl)));
    else
-     $response = do_xmlrpc(xmlrpc_encode_request("load",array($r_addurl)));
+     $response = do_xmlrpc(xmlrpc_encode_request("load.normal",array("",$r_addurl)));
 }
 
 // Upload torrent file...
@@ -99,7 +99,7 @@ if (isset($r_uploadtorrent)) {
    if ($_FILES['uploadtorrent']['name']!="") {
       $tmpfile=$_FILES['uploadtorrent']['name'];
       if (move_uploaded_file($_FILES['uploadtorrent']['tmp_name'], $watchdir.basename($_FILES['uploadtorrent']['name']))) {
-         $response = do_xmlrpc(xmlrpc_encode_request("load_start",array($watchdir.basename($_FILES['uploadtorrent']['name']))));
+         $response = do_xmlrpc(xmlrpc_encode_request("load.start",array("",$watchdir.basename($_FILES['uploadtorrent']['name']))));
          header("Location: index.php");
       } else {
          echo "Error moving file - check permissions etc!  <a href=index.php>Continue</a>.\n";

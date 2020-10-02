@@ -31,8 +31,8 @@ if (!isset($_SESSION['refresh'])) $_SESSION['refresh']=$defaultrefresh;
 if ($r_setrefresh) $_SESSION['refresh']=$r_setrefresh;
 
 if ($r_setmaxup || $r_setmaxdown) {
-   $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_up.max_rate.set",array("$r_setmaxup")));    
-   $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_down.max_rate.set",array("$r_setmaxdown")));
+   $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_up.max_rate.set",array("", "$r_setmaxup")));    
+   $response = do_xmlrpc(xmlrpc_encode_request("throttle.global_down.max_rate.set",array("", "$r_setmaxdown")));
 }
 
 $globalstats=get_global_stats();
